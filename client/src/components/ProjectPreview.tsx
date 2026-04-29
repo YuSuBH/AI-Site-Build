@@ -1,6 +1,7 @@
-import { forwardRef, useRef } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import type { Project } from "../types";
 import { iframeScript } from "../assets/assets";
+import EditorPanel from "./EditorPanel";
 
 interface ProjectPreviewProps {
   project: Project;
@@ -19,6 +20,7 @@ const ProjectPreview = forwardRef<ProjectPreviewRef, ProjectPreviewProps>(
     ref,
   ) => {
     const iframeRef = useRef<HTMLIFrameElement>(null);
+    const [selectedElement, setSelectedElement] = useState<any>(null);
 
     const resolutions = {
       phone: "w-[412px]",
@@ -26,12 +28,36 @@ const ProjectPreview = forwardRef<ProjectPreviewRef, ProjectPreviewProps>(
       desktop: "w-full",
     };
 
+    useEffect(() => {
+      const handleMessage = (event: MessageEvent) => {
+        if (event.data.type === "ELEMENT_SELECTED") {
+          setSelectedElement(event.data.payload);
+        } else if (event.data.type === "CLEAR_SELECTION") {
+          setSelectedElement(null);
+        }
+      };
+
+      window.addEventListener("message", handleMessage);
+      return () => {
+        window.removeEventListener("message", handleMessage);
+      };
+    }, []);
+
+    const handleUpdate = (updates: any) => {
+      if (iframeRef.current?.contentWindow) {
+        iframeRef.current.contentWindow.postMessage(
+          { type: "UPDATE_ELEMENT", payload: updates },
+          "*",
+        );
+      }
+    };
+
     const injectPreview = (html: string) => {
       if (!html) return "";
       if (!showEditorPanel) return html;
 
-      if (html.includes("< /body>")) {
-        return html.replace("< /body>", iframeScript + "</body>");
+      if (html.includes("</body>")) {
+        return html.replace("</body>", iframeScript + "</body>");
       } else {
         return html + iframeScript;
       }
@@ -44,9 +70,23 @@ const ProjectPreview = forwardRef<ProjectPreviewRef, ProjectPreviewProps>(
             <iframe
               ref={iframeRef}
               srcDoc={injectPreview(project.current_code)}
-              title="preview"
               className={`h-full max-sm:w-full transition-all mx-auto ${resolutions[device]}`}
             />
+            {showEditorPanel && selectedElement && (
+              <EditorPanel
+                selectedElement={selectedElement}
+                onUpdate={handleUpdate}
+                onClose={() => {
+                  setSelectedElement(null);
+                  if (iframeRef.current?.contentWindow) {
+                    iframeRef.current.contentWindow.postMessage(
+                      { type: "CLEAR_SELECTION_REQUEST" },
+                      "*",
+                    );
+                  }
+                }}
+              />
+            )}
           </>
         ) : (
           isGenerating && <div>loadding</div>
