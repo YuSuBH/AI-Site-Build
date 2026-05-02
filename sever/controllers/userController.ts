@@ -211,10 +211,10 @@ export const getUserProject = async (req: Request, res: Response) => {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
-    const { projectId } = req.params;
+    const { projectId } = req.params as { projectId: string };
 
     const project = await prisma.websiteProject.findFirst({
-      where: { id: projectId as string, userId },
+      where: { id: projectId, userId },
       include: {
         conversation: {
           orderBy: { timestamp: "asc" },
@@ -260,10 +260,10 @@ export const togglePublish = async (req: Request, res: Response) => {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
-    const { projectId } = req.params;
+    const { projectId } = req.params as { projectId: string };
 
     const project = await prisma.websiteProject.findFirst({
-      where: { id: projectId as string, userId },
+      where: { id: projectId, userId },
     });
 
     if (!project) {
@@ -271,7 +271,7 @@ export const togglePublish = async (req: Request, res: Response) => {
     }
 
     await prisma.websiteProject.update({
-      where: { id: projectId as string },
+      where: { id: projectId },
       data: { isPublished: !project.isPublished },
     });
 
