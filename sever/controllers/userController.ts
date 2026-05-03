@@ -29,7 +29,11 @@ export const createUserProject = async (req: Request, res: Response) => {
   let createdProjectId: string | null = null;
 
   try {
-    const { initial_prompt } = req.body;
+    const { initialPrompt: initial_prompt } = req.body;
+
+    if (!initial_prompt) {
+      return res.status(400).json({ message: "Prompt is required" });
+    }
 
     if (!userId) {
       return res.status(401).json({ message: "Unauthorized" });
@@ -54,7 +58,7 @@ export const createUserProject = async (req: Request, res: Response) => {
         userId,
       },
     });
-    
+
     createdProjectId = project.id;
 
     // Update users total creation count
@@ -82,7 +86,7 @@ export const createUserProject = async (req: Request, res: Response) => {
 
     // Enhance user prompt
     const promptEnhanceResponse = await openai.chat.completions.create({
-      model: "z-ai/glm-4.5-air:free",
+      model: "tencent/hy3-preview:free",
       messages: [
         {
           role: "system",
@@ -119,14 +123,14 @@ export const createUserProject = async (req: Request, res: Response) => {
     await prisma.conversation.create({
       data: {
         role: "assistant",
-        content: `Now generating your website..."`,
+        content: `Now generating your website...`,
         projectId: project.id,
       },
     });
 
     // Generate website code
     const codeGenerationResponse = await openai.chat.completions.create({
-      model: "z-ai/glm-4.5-air:free",
+      model: "tencent/hy3-preview:free",
       messages: [
         {
           role: "system",
@@ -227,7 +231,9 @@ export const createUserProject = async (req: Request, res: Response) => {
 
     console.log(error);
     if (!res.headersSent) {
-      res.status(500).json({ message: error.code || error.message || "Failed to create project" });
+      res.status(500).json({
+        message: error.code || error.message || "Failed to create project",
+      });
     }
   }
 };

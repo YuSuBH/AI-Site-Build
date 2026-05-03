@@ -55,7 +55,7 @@ export default function Settings() {
           onError: (ctx) => {
             toast.error(ctx.error.message || "Failed to update profile");
           },
-        }
+        },
       );
     } catch (error) {
       toast.error("An unexpected error occurred");
@@ -83,7 +83,7 @@ export default function Settings() {
           onError: (ctx) => {
             toast.error(ctx.error.message || "Failed to change password");
           },
-        }
+        },
       );
     } catch (error) {
       toast.error("An unexpected error occurred");
@@ -95,7 +95,7 @@ export default function Settings() {
   const handleDeleteAccount = async (e: React.FormEvent) => {
     e.preventDefault();
     const confirmed = window.confirm(
-      "Are you sure you want to delete your account? This action cannot be undone."
+      "Are you sure you want to delete your account? This action cannot be undone.",
     );
     if (!confirmed) return;
 
@@ -113,7 +113,7 @@ export default function Settings() {
           onError: (ctx) => {
             toast.error(ctx.error.message || "Failed to delete account");
           },
-        }
+        },
       );
     } catch (error) {
       toast.error("An unexpected error occurred");
@@ -168,7 +168,9 @@ export default function Settings() {
 
       {/* Security Settings */}
       <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl">
-        <h2 className="text-xl font-semibold text-white mb-4">Security</h2>
+        <h2 className="text-xl font-semibold text-white mb-4">
+          Change Password
+        </h2>
         <form onSubmit={handleChangePassword} className="space-y-4 max-w-md">
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-1">
