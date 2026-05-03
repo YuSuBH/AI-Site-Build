@@ -1,4 +1,5 @@
 import { Route, Routes, useLocation } from "react-router-dom";
+import { Toaster } from "sonner";
 import Home from "./pages/Home";
 import Pricing from "./pages/Pricing";
 import Projects from "./pages/Projects";
@@ -6,6 +7,8 @@ import MyProjects from "./pages/MyProjects";
 import Preview from "./pages/Preview";
 import Community from "./pages/Community";
 import View from "./pages/View";
+import Auth from "./pages/Auth";
+import Settings from "./pages/Settings";
 import Navbar from "./components/Navbar";
 
 const App = () => {
@@ -18,9 +21,12 @@ const App = () => {
 
   return (
     <div>
+      <Toaster position="bottom-right" richColors />
       {!hideNavbar && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/account/settings" element={<Settings />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/projects/:projectId" element={<Projects />} />
         <Route path="/projects" element={<MyProjects />} />

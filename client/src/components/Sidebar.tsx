@@ -8,6 +8,7 @@ import {
 import { type Message, type Project, type Version } from "../types";
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import { toast } from "sonner";
 import api from "../configs/axios";
 
 interface SidebarProps {
@@ -33,6 +34,7 @@ const Sidebar = ({
       const { data } = await api.get(`/api/user/project/${project.id}`);
       setProject(data.project);
     } catch (error: any) {
+      toast.error(error.response?.data?.message || error.message || "Failed to sync project");
       console.log(error);
     }
   };
@@ -49,11 +51,12 @@ const Sidebar = ({
       );
       const { data: data2 } = await api.get(`/api/user/project/${project.id}`);
 
-      // toast data.success
+      toast.success(data.message || "Project rolled back successfully");
       setProject(data2.project);
       setIsGenerating(false);
     } catch (error: any) {
       setIsGenerating(false);
+      toast.error(error.response?.data?.message || error.message || "Failed to rollback project");
       console.log(error);
     }
   };
@@ -71,12 +74,14 @@ const Sidebar = ({
       const { data } = await api.post(`/api/project/revision/${project.id}`, {
         message: input,
       });
+      toast.success(data.message || "Revision applied successfully");
       fetchProject();
       setInput("");
       clearInterval(interval);
       setIsGenerating(false);
     } catch (error: any) {
       setIsGenerating(false);
+      toast.error(error.response?.data?.message || error.message || "Failed to apply revision");
       console.log(error);
       clearInterval(interval);
     }

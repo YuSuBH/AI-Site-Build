@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Loader2Icon } from "lucide-react";
+import { toast } from "sonner";
 import ProjectPreview from "../components/ProjectPreview";
 import type { Project } from "../types";
 import api from "../configs/axios";
@@ -16,6 +17,7 @@ const View = () => {
       setCode(data.code);
       setLoading(false);
     } catch (error: any) {
+      toast.error(error.response?.data?.message || error.message || "Failed to fetch project view");
       console.log(error);
     }
   };

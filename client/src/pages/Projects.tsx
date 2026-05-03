@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { useSession } from "../lib/auth-client";
+import { toast } from "sonner";
 import type { Project } from "../types";
 import {
   ArrowBigDownDashIcon,
@@ -14,11 +16,6 @@ import {
   TabletIcon,
   XIcon,
 } from "lucide-react";
-import {
-  dummyConversations,
-  dummyProjects,
-  dummyVersion,
-} from "../assets/assets";
 import Sidebar from "../components/Sidebar";
 import ProjectPreview, {
   type ProjectPreviewRef,
@@ -28,6 +25,7 @@ import api from "../configs/axios";
 const Projects = () => {
   const { projectId } = useParams();
   const navigate = useNavigate();
+  const { data: session, isPending } = useSession();
 
   const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
@@ -49,6 +47,11 @@ const Projects = () => {
       setIsGenerating(data.project.current_code ? false : true);
       setLoading(false);
     } catch (error: any) {
+      toast.error(
+        error.response?.data?.message ||
+          error.message ||
+          "Failed to fetch project",
+      );
       console.log(error);
     }
   };
@@ -65,8 +68,13 @@ const Projects = () => {
       const { data } = await api.put(`/api/project/save/${projectId}`, {
         code,
       });
-      // toast success data.message
+      toast.success(data.message || "Project saved successfully");
     } catch (error: any) {
+      toast.error(
+        error.response?.data?.message ||
+          error.message ||
+          "Failed to save project",
+      );
       console.log(error);
     } finally {
       setIsSaving(false);
@@ -96,19 +104,29 @@ const Projects = () => {
   const togglePublsih = async () => {
     try {
       const { data } = await api.get(`/api/user/publish-toggle/${projectId}`);
-      // toast success data.message
+      toast.success(data.message || "Project publish status updated");
 
       setProject((prev) =>
         prev ? { ...prev, isPublished: !prev.isPublished } : null,
       );
     } catch (error: any) {
+      toast.error(
+        error.response?.data?.message ||
+          error.message ||
+          "Failed to toggle publish status",
+      );
       console.log(error);
     }
   };
 
   useEffect(() => {
-    // fetchproject for valid user session
-  });
+    if (session?.user) {
+      fetchProject();
+    } else if (!isPending && !session?.user) {
+      toast.error("Please login to view your projects");
+      navigate("/");
+    }
+  }, [session, isPending]);
 
   useEffect(() => {
     if (project && !project.current_code) {

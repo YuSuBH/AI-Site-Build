@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { Project } from "../types";
 import { Loader2Icon } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import Footer from "../components/Footer";
 import api from "../configs/axios";
 
@@ -16,6 +17,7 @@ const Community = () => {
       setProjects(data.projects);
       setLoading(false);
     } catch (error: any) {
+      toast.error(error.response?.data?.message || error.message || "Failed to fetch community projects");
       console.log(error);
     }
   };

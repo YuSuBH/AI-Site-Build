@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Loader2Icon } from "lucide-react";
+import { toast } from "sonner";
 import ProjectPreview from "../components/ProjectPreview";
+import { useSession } from "../lib/auth-client";
 import type { Project, Version } from "../types";
 import api from "../configs/axios";
 
@@ -9,6 +11,7 @@ const Preview = () => {
   const { projectId, versionId } = useParams();
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(true);
+  const { data: session, isPending } = useSession();
 
   const fetchCode = async () => {
     try {
@@ -25,13 +28,16 @@ const Preview = () => {
 
       setLoading(false);
     } catch (error: any) {
+      toast.error(error.response?.data?.message || error.message || "Failed to load project code");
       console.log(error);
     }
   };
 
   useEffect(() => {
-    // handle fetchCode according to user session
-  }, []);
+    if (!isPending && session?.user) {
+      fetchCode();
+    }
+  }, [session, isPending]);
 
   if (loading) {
     return (

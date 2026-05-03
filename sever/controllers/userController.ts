@@ -25,6 +25,8 @@ export const getUserCredits = async (req: Request, res: Response) => {
 // Controller function to Create new project
 export const createUserProject = async (req: Request, res: Response) => {
   const userId = req.userId;
+  let creditsDeducted = false;
+  let createdProjectId: string | null = null;
 
   try {
     const { initial_prompt } = req.body;
@@ -52,9 +54,10 @@ export const createUserProject = async (req: Request, res: Response) => {
         userId,
       },
     });
+    
+    createdProjectId = project.id;
 
-    // Update users total credit
-
+    // Update users total creation count
     await prisma.user.update({
       where: { id: userId },
       data: { totalCreation: { increment: 1 } },
@@ -72,7 +75,9 @@ export const createUserProject = async (req: Request, res: Response) => {
       where: { id: userId },
       data: { credits: { decrement: 5 } },
     });
+    creditsDeducted = true;
 
+    // Respond early so the frontend can navigate to the builder
     res.json({ projectId: project.id });
 
     // Enhance user prompt
@@ -162,18 +167,7 @@ export const createUserProject = async (req: Request, res: Response) => {
     const code = codeGenerationResponse.choices[0].message.content || "";
 
     if (!code) {
-      await prisma.conversation.create({
-        data: {
-          role: "assistant",
-          content: `Unable to generate the website, please try again.`,
-          projectId: project.id,
-        },
-      });
-      await prisma.user.update({
-        where: { id: userId },
-        data: { credits: { increment: 5 } },
-      });
-      return;
+      throw new Error("Unable to generate the website");
     }
 
     // Create version for the project
@@ -207,13 +201,34 @@ export const createUserProject = async (req: Request, res: Response) => {
       },
     });
   } catch (error: any) {
-    await prisma.user.update({
-      where: { id: userId },
-      data: { credits: { increment: 5 } },
-    });
+    if (creditsDeducted) {
+      await prisma.user.update({
+        where: { id: userId },
+        data: { credits: { increment: 5 } },
+      });
+    }
+
+    if (createdProjectId) {
+      await prisma.conversation.create({
+        data: {
+          role: "assistant",
+          content: `Unable to generate the website. Please try again.`,
+          projectId: createdProjectId,
+        },
+      });
+
+      await prisma.websiteProject.update({
+        where: { id: createdProjectId },
+        data: {
+          current_code: "<!-- Generation Failed. Please try again. -->",
+        },
+      });
+    }
 
     console.log(error);
-    res.status(500).json({ message: error.code });
+    if (!res.headersSent) {
+      res.status(500).json({ message: error.code || error.message || "Failed to create project" });
+    }
   }
 };
 

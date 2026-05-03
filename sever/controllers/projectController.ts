@@ -5,6 +5,7 @@ import openai from "../configs/openai.js";
 // Controller function to Make revision
 export const makeRevision = async (req: Request, res: Response) => {
   const userId = req.userId;
+  let creditsDeducted = false;
 
   try {
     const { projectId } = req.params as { projectId: string };
@@ -47,6 +48,7 @@ export const makeRevision = async (req: Request, res: Response) => {
       where: { id: userId },
       data: { credits: { decrement: 5 } },
     });
+    creditsDeducted = true;
 
     // Enhance user prompt
     const promptEnhanceResponse = await openai.chat.completions.create({
@@ -121,18 +123,7 @@ export const makeRevision = async (req: Request, res: Response) => {
     const code = codeGenerationResponse.choices[0].message.content || "";
 
     if (!code) {
-      await prisma.conversation.create({
-        data: {
-          role: "assistant",
-          content: `Unable to generate the website, please try again.`,
-          projectId,
-        },
-      });
-      await prisma.user.update({
-        where: { id: userId },
-        data: { credits: { increment: 5 } },
-      });
-      return;
+      throw new Error("Unable to generate the website");
     }
 
     const version = await prisma.version.create({
@@ -167,13 +158,34 @@ export const makeRevision = async (req: Request, res: Response) => {
 
     res.json({ message: "Changes made successfully" });
   } catch (error: any) {
-    await prisma.user.update({
-      where: { id: userId },
-      data: { credits: { increment: 5 } },
-    });
+    if (creditsDeducted) {
+      await prisma.user.update({
+        where: { id: userId },
+        data: { credits: { increment: 5 } },
+      });
+    }
+
+    // Attempt to log failure in conversation if projectId is known
+    // Since req.params.projectId is available, we can use it.
+    const { projectId } = req.params as { projectId: string };
+    if (projectId) {
+      try {
+        await prisma.conversation.create({
+          data: {
+            role: "assistant",
+            content: `Failed to apply changes. Please try again.`,
+            projectId,
+          },
+        });
+      } catch (e) {
+        console.error("Failed to add error message to conversation", e);
+      }
+    }
 
     console.log(error.code || error.message);
-    res.status(500).json({ message: error.message });
+    if (!res.headersSent) {
+      res.status(500).json({ message: error.message || "Failed to make revision" });
+    }
   }
 };
 

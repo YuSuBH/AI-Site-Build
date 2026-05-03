@@ -1,21 +1,45 @@
 import { Loader2Icon } from "lucide-react";
 import React, { useState } from "react";
+import { useSession } from "../lib/auth-client";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import api from "../configs/axios";
 
 const Home = () => {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const { data: session } = useSession();
+  const navigate = useNavigate();
 
   const onSubmitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    //TODO Check sign in and handle submit and navigate to new project page
+    try {
+      if (!session?.user) {
+        toast.error("Please sign in to create a project");
+        return;
+      } else if (!input.trim()) {
+        toast.error("Please enter a message");
+        return;
+      }
 
-    setLoading(true);
+      setLoading(true);
 
-    // simulate API call
-    setTimeout(() => {
+      const { data } = await api.post("/api/user/project", {
+        initialPrompt: input,
+      });
+
       setLoading(false);
-    }, 3000);
+      navigate(`/projects/${data.projectId}`);
+    } catch (error: any) {
+      setLoading(false);
+      toast.error(
+        error.response?.data?.message ||
+          error.message ||
+          "Failed to create project",
+      );
+      console.log(error);
+    }
   };
 
   return (
@@ -68,7 +92,7 @@ const Home = () => {
           placeholder="Describe your website in details"
           required
         />
-        <button className="ml-auto flex items-center gap-2 bg-gradient-to-r from-[#CB52D4] to-indigo-600 rounded-md px-4 py-2">
+        <button className="ml-auto flex items-center gap-2 bg-linear-to-r from-[#CB52D4] to-indigo-600 rounded-md px-4 py-2">
           {!loading ? (
             "Create with AI"
           ) : (
