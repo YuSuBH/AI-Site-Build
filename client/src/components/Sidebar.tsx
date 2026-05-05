@@ -63,7 +63,23 @@ const Sidebar = ({
 
   const handleRevisions = async (e: FormEvent) => {
     e.preventDefault();
+    if (!input.trim()) return;
+
     let interval: number | undefined;
+    const optimisticMessage: Message = {
+      id: `optimistic-${Date.now()}`,
+      role: "user",
+      content: input,
+      timestamp: new Date().toISOString(),
+    };
+
+    // Immediately show the user message in the sidebar
+    setProject({
+      ...project,
+      conversation: [...project.conversation, optimisticMessage],
+    });
+    const sentInput = input;
+    setInput("");
 
     try {
       setIsGenerating(true);
@@ -72,15 +88,22 @@ const Sidebar = ({
       }, 10000);
 
       const { data } = await api.post(`/api/project/revision/${project.id}`, {
-        message: input,
+        message: sentInput,
       });
       toast.success(data.message || "Revision applied successfully");
       fetchProject();
-      setInput("");
       clearInterval(interval);
       setIsGenerating(false);
     } catch (error: any) {
       setIsGenerating(false);
+      // Remove the optimistic message and restore the input on failure
+      setProject({
+        ...project,
+        conversation: project.conversation.filter(
+          (m) => m.id !== optimisticMessage.id
+        ),
+      });
+      setInput(sentInput);
       toast.error(error.response?.data?.message || error.message || "Failed to apply revision");
       console.log(error);
       clearInterval(interval);
