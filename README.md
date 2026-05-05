@@ -1,4 +1,4 @@
-# AI Site Build
+# OneCon
 
 AI Site Build is a powerful tool designed to streamline the process of creating and managing AI-powered websites.
 
@@ -20,16 +20,19 @@ The project is split into two main parts:
 ### Installation
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/YuSuBH/AI-Site-Build.git
    cd AI-Site-Build
    ```
 
 2. **Setup the Backend (sever):**
+
    ```bash
    cd sever
    npm install
    ```
+
    - Create a `.env` file based on the provided configuration (ensure you have your database URL and OpenAI API key).
    - Run Prisma migrations:
      ```bash
@@ -41,18 +44,23 @@ The project is split into two main parts:
    cd ../client
    npm install
    ```
+
    - Create a `.env` file if necessary for frontend configurations.
 
 ## Running the Application
 
 ### Start the Backend
+
 From the `sever` directory:
+
 ```bash
 npm run server
 ```
 
 ### Start the Frontend
+
 From the `client` directory:
+
 ```bash
 npm run dev
 ```

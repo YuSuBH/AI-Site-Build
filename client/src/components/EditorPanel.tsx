@@ -69,7 +69,7 @@ const EditorPanel = ({
           <textarea
             value={values.text}
             onChange={(e) => handleChange("text", e.target.value)}
-            className="w-full p-2 border border-gray-400 rounded-md text-sm focus:ring-2 focus:ring-indigo-500 outline-none min-h-20"
+            className="w-full p-2 border border-gray-400 rounded-md text-sm focus:ring-2 focus:ring-[#FF0000] outline-none min-h-20"
           />
         </div>
 
@@ -81,7 +81,7 @@ const EditorPanel = ({
             type="text"
             value={values.className || ""}
             onChange={(e) => handleChange("className", e.target.value)}
-            className="w-full p-2 border border-gray-400 rounded-md text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+            className="w-full p-2 border border-gray-400 rounded-md text-sm focus:ring-2 focus:ring-[#FF0000] outline-none"
           />
         </div>
 
@@ -94,7 +94,7 @@ const EditorPanel = ({
               type="text"
               value={values.styles.padding}
               onChange={(e) => handleStyleChange("padding", e.target.value)}
-              className="w-full p-2 border border-gray-400 rounded-md text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+              className="w-full p-2 border border-gray-400 rounded-md text-sm focus:ring-2 focus:ring-[#FF0000] outline-none"
             />
           </div>
 
@@ -106,7 +106,7 @@ const EditorPanel = ({
               type="text"
               value={values.styles.margin}
               onChange={(e) => handleStyleChange("margin", e.target.value)}
-              className="w-full p-2 border border-gray-400 rounded-md text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+              className="w-full p-2 border border-gray-400 rounded-md text-sm focus:ring-2 focus:ring-[#FF0000] outline-none"
             />
           </div>
         </div>
@@ -120,7 +120,7 @@ const EditorPanel = ({
               type="text"
               value={values.styles.fontSize}
               onChange={(e) => handleStyleChange("fontSize", e.target.value)}
-              className="w-full p-2 border border-gray-400 rounded-md text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+              className="w-full p-2 border border-gray-400 rounded-md text-sm focus:ring-2 focus:ring-[#FF0000] outline-none"
             />
           </div>
         </div>

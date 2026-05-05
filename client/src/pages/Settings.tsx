@@ -30,7 +30,7 @@ export default function Settings() {
   if (isPending) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-indigo-500" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#FF0000]" />
       </div>
     );
   }
@@ -124,11 +124,11 @@ export default function Settings() {
 
   return (
     <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-8">
-      <h1 className="text-3xl font-bold text-white mb-8">Account Settings</h1>
+      <h1 className="text-3xl font-bold text-black mb-8">Account Settings</h1>
 
       {/* Profile Settings */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl">
-        <h2 className="text-xl font-semibold text-white mb-4">Profile</h2>
+      <div className="bg-[#F5F5F5] border border-[#BBD5DA] rounded-xl p-6 shadow-xl">
+        <h2 className="text-xl font-semibold text-black mb-4">Profile</h2>
         <form onSubmit={handleUpdateProfile} className="space-y-4 max-w-md">
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-1">
@@ -138,7 +138,7 @@ export default function Settings() {
               type="email"
               disabled
               value={session.user.email}
-              className="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-md text-slate-400 cursor-not-allowed"
+              className="w-full px-3 py-2 bg-[#DFF1F1] border border-[#BBD5DA] rounded-md text-slate-400 cursor-not-allowed"
             />
             <p className="text-xs text-slate-500 mt-1">
               Email cannot be changed currently.
@@ -152,13 +152,13 @@ export default function Settings() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-800/50 border border-slate-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 bg-[#DFF1F1]/50 border border-[#BBD5DA] rounded-md text-black focus:outline-none focus:ring-2 focus:ring-[#FF0000]"
             />
           </div>
           <button
             type="submit"
             disabled={isUpdatingProfile}
-            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+            className="px-4 py-2 bg-[#FF0000] text-white rounded-md font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
           >
             {isUpdatingProfile && <Loader2 className="w-4 h-4 animate-spin" />}
             Save Changes
@@ -167,8 +167,8 @@ export default function Settings() {
       </div>
 
       {/* Security Settings */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl">
-        <h2 className="text-xl font-semibold text-white mb-4">
+      <div className="bg-[#F5F5F5] border border-[#BBD5DA] rounded-xl p-6 shadow-xl">
+        <h2 className="text-xl font-semibold text-black mb-4">
           Change Password
         </h2>
         <form onSubmit={handleChangePassword} className="space-y-4 max-w-md">
@@ -181,7 +181,7 @@ export default function Settings() {
               required
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-800/50 border border-slate-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 bg-[#DFF1F1]/50 border border-[#BBD5DA] rounded-md text-black focus:outline-none focus:ring-2 focus:ring-[#FF0000]"
             />
           </div>
           <div>
@@ -193,13 +193,13 @@ export default function Settings() {
               required
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-800/50 border border-slate-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 bg-[#DFF1F1]/50 border border-[#BBD5DA] rounded-md text-black focus:outline-none focus:ring-2 focus:ring-[#FF0000]"
             />
           </div>
           <button
             type="submit"
             disabled={isChangingPassword}
-            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+            className="px-4 py-2 bg-[#FF0000] text-white rounded-md font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
           >
             {isChangingPassword && <Loader2 className="w-4 h-4 animate-spin" />}
             Update Password
@@ -224,14 +224,14 @@ export default function Settings() {
               required
               value={deletePassword}
               onChange={(e) => setDeletePassword(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-800/50 border border-slate-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full px-3 py-2 bg-[#DFF1F1]/50 border border-[#BBD5DA] rounded-md text-black focus:outline-none focus:ring-2 focus:ring-red-500"
               placeholder="Enter your password"
             />
           </div>
           <button
             type="submit"
             disabled={isDeletingAccount}
-            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-black rounded-md font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
           >
             {isDeletingAccount && <Loader2 className="w-4 h-4 animate-spin" />}
             Delete Account

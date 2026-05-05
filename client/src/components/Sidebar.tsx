@@ -118,7 +118,7 @@ const Sidebar = ({
 
   return (
     <div
-      className={`h-full sm:max-w-sm rounded-xl bg-gray-900 border-gray-800 transition-all ${isMenuOpen ? "max-sm:w-0 overflow-hidden" : "w-full"}`}
+      className={`h-full sm:max-w-sm rounded-xl bg-[#F5F5F5] border-[#BBD5DA] transition-all ${isMenuOpen ? "max-sm:w-0 overflow-hidden" : "w-full"}`}
     >
       <div className="flex flex-col h-full">
         {/* message container */}
@@ -141,17 +141,17 @@ const Sidebar = ({
                     className={` flex items-start gap-3 ${isUser ? "justify-end" : "justify-start"}`}
                   >
                     {!isUser && (
-                      <div className="w-8 h-8 rounded-full bg-linear-to-br from-indigo-600 to-indigo-700 flex items-center justify-center">
-                        <BotIcon className="size-5 text-white" />
+                      <div className="w-8 h-8 rounded-full bg-[#FF0000] flex items-center justify-center">
+                        <BotIcon className="size-5 text-black" />
                       </div>
                     )}
                     <div
-                      className={`max-w-[80%] p-2 px-4 rounded-2xl shadow-sm text-sm mt-5 leading-relaxed ${isUser ? "bg-linear-to-br from-indigo-500 to-indigo-600 text-white rounded-tr-none" : "bg-gray-800 text-gray-100 rounded-tl-none"}`}
+                      className={`max-w-[80%] p-2 px-4 rounded-2xl shadow-sm text-sm mt-5 leading-relaxed ${isUser ? "bg-[#FF0000] text-white rounded-tr-none" : "bg-[#DFF1F1] text-gray-800 rounded-tl-none"}`}
                     >
                       {msg.content}
                     </div>
                     {isUser && (
-                      <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-full bg-[#BBD5DA] flex items-center justify-center">
                         <UserIcon className="size-5 text-gray-200" />
                       </div>
                     )}
@@ -162,7 +162,7 @@ const Sidebar = ({
                 return (
                   <div
                     key={version.id}
-                    className="w-4/5 mx-auto my-2 p-3 rounded-xl bg-gray-800 text-gray-100 shadow flex flex-col gap-2"
+                    className="w-4/5 mx-auto my-2 p-3 rounded-xl bg-[#DFF1F1] text-gray-800 shadow flex flex-col gap-2"
                   >
                     <div className="text-xs font-medium">
                       code upated <br />
@@ -172,13 +172,13 @@ const Sidebar = ({
                     </div>
                     <div className="flex items-center justify-between">
                       {project.current_version_index === version.id ? (
-                        <button className="px-3 py-1 rounded-md text-xs bg-gray-700">
+                        <button className="px-3 py-1 rounded-md text-xs bg-[#BBD5DA]">
                           Current Version
                         </button>
                       ) : (
                         <button
                           onClick={() => handleRollback(version.id)}
-                          className="px-3 py-1 rounded-md text-xs bg-indigo-500 hover:bg-indigo-600 text-white"
+                          className="px-3 py-1 rounded-md text-xs bg-[#FF0000] hover:bg-[#FF0000] text-white"
                         >
                           Roll back to this Version
                         </button>
@@ -187,7 +187,7 @@ const Sidebar = ({
                         target="_blank"
                         to={`/preview/${project.id}/${version.id}`}
                       >
-                        <EyeIcon className="size-6 p-1 bg-gray-700 hover:bg-indigo-500 transition-colors rounded" />
+                        <EyeIcon className="size-6 p-1 bg-[#BBD5DA] hover:bg-[#FF0000] transition-colors rounded" />
                       </Link>
                     </div>
                   </div>
@@ -196,8 +196,8 @@ const Sidebar = ({
             })}
           {isGenerating && (
             <div className="flex items-start gap-3 justify-start">
-              <div className="w-8 h-8 rounded-full bg-linear-to-br from-indigo-600 to-indigo-700 flex items-center justify-center">
-                <BotIcon className="size-5 text-white" />
+              <div className="w-8 h-8 rounded-full bg-[#FF0000] flex items-center justify-center">
+                <BotIcon className="size-5 text-black" />
               </div>
               {/* three dot loader */}
               <div className="flex gap-1.5 h-full items-end">
@@ -227,17 +227,17 @@ const Sidebar = ({
               value={input}
               rows={4}
               placeholder="Describe your website or request your changes..."
-              className="flex-1 p-3 rounded-xl resize-none text-sm outline-none ring ring-gray-700 focus:ring-indigo-500 bg-gray-800 text-gray-100 placeholder-gray-400 transition-all"
+              className="flex-1 p-3 rounded-xl resize-none text-sm outline-none ring ring-gray-700 focus:ring-[#FF0000] bg-[#DFF1F1] text-gray-800 placeholder-gray-400 transition-all"
               disabled={isGenerating}
             />
             <button
               disabled={isGenerating || !input.trim()}
-              className="absolute bottom-2.5 right-2.5 rounded-full bg-linear-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-500 text-white transition-colors disabled:opacity-60"
+              className="absolute bottom-2.5 right-2.5 rounded-full bg-[#FF0000] text-white transition-colors disabled:opacity-60"
             >
               {isGenerating ? (
-                <Loader2Icon className="size-7 p-1.5 animate-spin text-white" />
+                <Loader2Icon className="size-7 p-1.5 animate-spin text-black" />
               ) : (
-                <SendIcon className="size-7 p-1.5 text-white" />
+                <SendIcon className="size-7 p-1.5 text-black" />
               )}
             </button>
           </div>

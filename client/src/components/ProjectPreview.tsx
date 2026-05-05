@@ -105,7 +105,7 @@ const ProjectPreview = forwardRef<ProjectPreviewRef, ProjectPreviewProps>(
     };
 
     return (
-      <div className="relative h-full bg-gray-900 flex-1 rounded-xl overflow-hidden max-sm:ml-2">
+      <div className="relative h-full bg-[#F5F5F5] flex-1 rounded-xl overflow-hidden max-sm:ml-2">
         {project.current_code ? (
           <>
             <iframe

@@ -29,7 +29,7 @@ const View = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Loader2Icon className="size-7 animate-spin text-indigo-200" />
+        <Loader2Icon className="size-7 animate-spin text-black" />
       </div>
     );
   }

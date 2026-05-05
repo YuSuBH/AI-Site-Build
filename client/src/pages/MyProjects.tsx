@@ -56,15 +56,15 @@ const MyProjects = () => {
       <div className="px-4 md:px-16 lg:px-24 xl:px-32">
         {loading ? (
           <div className="flex items-center justify-center h-[80vh]">
-            <Loader2Icon className="size-7 animate-spin text-indigo-200" />
+            <Loader2Icon className="size-7 animate-spin text-black" />
           </div>
         ) : projects.length > 0 ? (
           <div className="py-10 min-h-[80vh]">
             <div className="flex items-center justify-between mb-12">
-              <h1 className="text-2xl font-medium text-white">My Projects</h1>
+              <h1 className="text-2xl font-medium text-black">My Projects</h1>
               <button
                 onClick={() => navigate("/")}
-                className="flex items-center gap-2 text-white px-3 sm:px-6 py-1 sm:py-2 rounded bg-linear-to-br from-indigo-500 to-indigo-600 hover:opacity-90 active:scale-95 transition-all"
+                className="flex items-center gap-2 text-white px-3 sm:px-6 py-1 sm:py-2 rounded bg-[#FF0000] hover:opacity-90 active:scale-95 transition-all"
               >
                 <PlusIcon size={18} />
                 Create New
@@ -76,9 +76,9 @@ const MyProjects = () => {
                 <div
                   onClick={() => navigate(`/projects/${project.id}`)}
                   key={project.id}
-                  className="relative group w-72 max-sm:mx-auto cursor-pointer bg-gray-900/60 border border-gray-700 rounded-lg overflow-hidden shadow-md group hover:shadow-indigo-700/30 hover:border-indigo-800/80 transition-all duration-300"
+                  className="relative group w-72 max-sm:mx-auto cursor-pointer bg-[#DFF1F1] border border-[#BBD5DA] rounded-lg overflow-hidden shadow-md group hover:shadow-[#FF0000]/30 hover:border-[#FF0000]/80 transition-all duration-300"
                 >
-                  <div className="relative w-full h-40 bg-gray-900 overflow-hidden border-b border-gray-800">
+                  <div className="relative w-full h-40 bg-[#F5F5F5] overflow-hidden border-b border-[#BBD5DA]">
                     {project.current_code ? (
                       <iframe
                         srcDoc={project.current_code}
@@ -94,16 +94,16 @@ const MyProjects = () => {
                   </div>
 
                   {/* content */}
-                  <div className="p-4 text-white bg-linear-180 from-transparent group-hover:from-indigo-950 to-transparent transition-colors">
+                  <div className="p-4 text-black bg-linear-180 from-transparent group-hover:from-[#FF0000] to-transparent transition-colors">
                     <div className="flex items-start justify-between">
                       <h2 className="text-lg font-medium line-clamp-2">
                         {project.name}
                       </h2>
-                      <button className="px-2.5 py-0.5 mt-1 ml-2 text-xs bg-gray-800 border border-gray-700 rounded-full">
+                      <button className="px-2.5 py-0.5 mt-1 ml-2 text-xs bg-[#DFF1F1] border border-[#BBD5DA] rounded-full">
                         Website
                       </button>
                     </div>
-                    <p className="text-gray-400 mt-1 text-sm line-clamp-2">
+                    <p className="text-gray-600 mt-1 text-sm line-clamp-2">
                       {project.initial_prompt}
                     </p>
 
@@ -115,16 +115,16 @@ const MyProjects = () => {
                         {new Date(project.createdAt).toLocaleDateString()}
                       </span>
 
-                      <div className="flex gap-3 text-white text-sm">
+                      <div className="flex gap-3 text-black text-sm">
                         <button
                           onClick={() => navigate(`/preview/${project.id}`)}
-                          className="px-3 py-1.5 bg-white/10 hover:bg-white/15 rounded-md transition-all"
+                          className="px-3 py-1.5 bg-[#DFF1F1] hover:bg-white/15 rounded-md transition-all"
                         >
                           Preview
                         </button>
                         <button
                           onClick={() => navigate(`/projects/${project.id}`)}
-                          className="px-3 py-1.5 bg-white/10 hover:bg-white/15 rounded-md transition-colors"
+                          className="px-3 py-1.5 bg-[#DFF1F1] hover:bg-white/15 rounded-md transition-colors"
                         >
                           Open
                         </button>
@@ -143,12 +143,12 @@ const MyProjects = () => {
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center h-[80vh]">
-            <h1 className="text-3xl font-semibold text-gray-300">
+            <h1 className="text-3xl font-semibold text-gray-700">
               You have no projects yet!
             </h1>
             <button
               onClick={() => navigate("/")}
-              className="text-white px-5 py-2 mt-5 rounded-md bg-indigo-500 hover:bg-indigo-600 active:scale-95 transition-all"
+              className="text-black px-5 py-2 mt-5 rounded-md bg-[#FF0000] hover:bg-[#FF0000] active:scale-95 transition-all"
             >
               Create New
             </button>

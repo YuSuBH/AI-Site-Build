@@ -27,9 +27,10 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="z-50 flex items-center justify-between w-full py-4 px-4 md:px-16 lg:px-24 xl:px-32 backdrop-blur border-b text-white border-slate-800">
-        <Link to="/">
-          <img src={assets.logo} alt="logo" className="h-5 sm:h-7" />
+      <nav className="z-50 flex items-center justify-between w-full py-4 px-4 md:px-16 lg:px-24 xl:px-32 backdrop-blur border-b text-black border-[#BBD5DA]">
+        <Link to="/" className="flex items-center gap-2">
+          <img src={assets.logo} alt="logo" className="h- sm:h-7" />
+          <span className="font-bold text-lg">OneCon</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-8 transition duration-500">
@@ -41,23 +42,22 @@ const Navbar = () => {
 
         <div className="flex items-center gap-3">
           {session?.user && (
-            <div className="hidden sm:flex items-center gap-1.5 bg-indigo-500/10 px-3 py-1.5 rounded-full border border-indigo-500/20 text-indigo-300 font-medium text-sm">
-              <span className="font-bold text-indigo-200">{credits}</span>{" "}
-              Credits
+            <div className="hidden sm:flex items-center gap-1.5 bg-[#FF0000]/10 px-3 py-1.5 rounded-full border border-[#FF0000]/20 text-[#FF0000] font-medium text-sm">
+              <span className="font-bold text-black">{credits}</span> Credits
             </div>
           )}
 
           {isPending ? (
-            <div className="w-8 h-8 rounded-full bg-slate-800 animate-pulse"></div>
+            <div className="w-8 h-8 rounded-full bg-[#DFF1F1] animate-pulse"></div>
           ) : session ? (
             <div className="relative group">
-              <button className="flex items-center justify-center w-10 h-10 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition-colors">
+              <button className="flex items-center justify-center w-10 h-10 rounded-full bg-[#FF0000] text-white font-semibold transition-colors">
                 {session.user.name?.charAt(0).toUpperCase() ||
                   session.user.email.charAt(0).toUpperCase()}
               </button>
-              <div className="absolute right-0 mt-2 w-48 bg-slate-900 border border-slate-700 rounded-md shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                <div className="px-4 py-2 border-b border-slate-700">
-                  <p className="text-sm font-medium text-white truncate">
+              <div className="absolute right-0 mt-2 w-48 bg-[#F5F5F5] border border-[#BBD5DA] rounded-md shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className="px-4 py-2 border-b border-[#BBD5DA]">
+                  <p className="text-sm font-medium text-black truncate">
                     {session.user.name}
                   </p>
                   <p className="text-xs text-slate-400 truncate">
@@ -66,7 +66,7 @@ const Navbar = () => {
                 </div>
                 <Link
                   to="/account/settings"
-                  className="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-800 hover:text-white"
+                  className="block px-4 py-2 text-sm text-slate-300 hover:bg-[#DFF1F1] hover:text-black"
                 >
                   Settings
                 </Link>
@@ -75,7 +75,7 @@ const Navbar = () => {
                     await signOut();
                     navigate("/");
                   }}
-                  className="block w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-slate-800 hover:text-red-300"
+                  className="block w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-[#DFF1F1] hover:text-red-300"
                 >
                   Sign out
                 </button>
@@ -84,7 +84,7 @@ const Navbar = () => {
           ) : (
             <button
               onClick={() => navigate("/auth")}
-              className="px-6 py-1.5 max-sm:text-sm bg-indigo-600 active:scale-95 hover:bg-indigo-700 transition rounded"
+              className="px-6 py-1.5 max-sm:text-sm bg-[#FF0000] active:scale-95 hover:bg-red-700 text-white transition rounded"
             >
               Get started
             </button>
@@ -115,7 +115,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="fixed inset-0 z-100 bg-black/60 text-white backdrop-blur flex flex-col items-center justify-center text-lg gap-8 md:hidden transition-transform duration-300">
+        <div className="fixed inset-0 z-100 bg-[#F5F5F5]/60 text-black backdrop-blur flex flex-col items-center justify-center text-lg gap-8 md:hidden transition-transform duration-300">
           <Link to="/" onClick={() => setMenuOpen(false)}>
             Home
           </Link>
