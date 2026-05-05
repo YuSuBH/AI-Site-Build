@@ -51,7 +51,7 @@ const EditorPanel = ({
 
   return (
     // idea: crazy animation for editor panel
-    <div className="absolute top-4 right-4 w-80 bg-white rounded-lg shadow-xl border border-gray-200 p-4 z-50 animate-fade-in fade-in">
+    <div className="absolute top-4 right-4 w-80 bg-white rounded-lg shadow-xl border border-gray-200 p-4 z-50 animate-flow-in origin-top-right">
       <div className="flex justify-between items-center mb-4">
         <h3 className="font-semibold text-gray-800">Editor element</h3>
         <button

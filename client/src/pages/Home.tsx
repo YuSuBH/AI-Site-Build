@@ -2,7 +2,7 @@ import { Loader2Icon } from "lucide-react";
 import React, { useState } from "react";
 import { useSession } from "../lib/auth-client";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../configs/axios";
 
 const Home = () => {
@@ -44,8 +44,8 @@ const Home = () => {
 
   return (
     <section className="flex flex-col items-center text-white text-sm pb-20 px-4 font-poppins">
-      <a
-        href="https://prebuiltui.com"
+      <Link
+        to="/pricing"
         className="flex items-center gap-2 border border-slate-700 rounded-full p-1 pr-3 text-sm mt-20"
       >
         <span className="bg-indigo-600 text-xs px-3 py-1 rounded-full">
@@ -70,7 +70,7 @@ const Home = () => {
             />
           </svg>
         </p>
-      </a>
+      </Link>
 
       <h1 className="text-center text-[40px] leading-[48px] md:text-6xl md:leading-[70px] mt-4 font-semibold max-w-3xl">
         Turn thoughts into websites instantly, with AI.
