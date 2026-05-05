@@ -131,21 +131,21 @@ export default function Settings() {
         <h2 className="text-xl font-semibold text-black mb-4">Profile</h2>
         <form onSubmit={handleUpdateProfile} className="space-y-4 max-w-md">
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               Email Address
             </label>
             <input
               type="email"
               disabled
               value={session.user.email}
-              className="w-full px-3 py-2 bg-[#DFF1F1] border border-[#BBD5DA] rounded-md text-slate-400 cursor-not-allowed"
+              className="w-full px-3 py-2 bg-[#DFF1F1] border border-[#BBD5DA] rounded-md text-gray-600 cursor-not-allowed"
             />
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-gray-500 mt-1">
               Email cannot be changed currently.
             </p>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               Full Name
             </label>
             <input
@@ -173,7 +173,7 @@ export default function Settings() {
         </h2>
         <form onSubmit={handleChangePassword} className="space-y-4 max-w-md">
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               Current Password
             </label>
             <input
@@ -185,7 +185,7 @@ export default function Settings() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               New Password
             </label>
             <input
@@ -208,15 +208,15 @@ export default function Settings() {
       </div>
 
       {/* Danger Zone */}
-      <div className="bg-red-950/20 border border-red-900/50 rounded-xl p-6 shadow-xl">
-        <h2 className="text-xl font-semibold text-red-400 mb-2">Danger Zone</h2>
-        <p className="text-slate-400 text-sm mb-6">
+      <div className="bg-[#FF0000]/10 border border-[#FF0000]/30 rounded-xl p-6 shadow-xl">
+        <h2 className="text-xl font-semibold text-[#FF0000] mb-2">Danger Zone</h2>
+        <p className="text-red-800/80 text-sm mb-6">
           Permanently delete your account and all associated data. This action
           cannot be undone.
         </p>
         <form onSubmit={handleDeleteAccount} className="space-y-4 max-w-md">
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-1">
+            <label className="block text-sm font-medium text-red-800 mb-1">
               Confirm Password to Delete
             </label>
             <input

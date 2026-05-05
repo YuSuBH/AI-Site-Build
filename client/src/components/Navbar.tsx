@@ -38,10 +38,10 @@ const Navbar = () => {
         </Link>
 
         <div className="hidden md:flex items-center gap-8 transition duration-500">
-          <Link to="/">Home</Link>
-          <Link to="/projects">My Projects</Link>
-          <Link to="/community">Community</Link>
-          <Link to="/pricing">Pricing</Link>
+          <Link to="/" className="font-medium text-gray-700 hover:text-[#FF0000] transition-colors">Home</Link>
+          <Link to="/projects" className="font-medium text-gray-700 hover:text-[#FF0000] transition-colors">My Projects</Link>
+          <Link to="/community" className="font-medium text-gray-700 hover:text-[#FF0000] transition-colors">Community</Link>
+          <Link to="/pricing" className="font-medium text-gray-700 hover:text-[#FF0000] transition-colors">Pricing</Link>
         </div>
 
         <div className="flex items-center gap-3">
@@ -70,7 +70,7 @@ const Navbar = () => {
                 </div>
                 <Link
                   to="/account/settings"
-                  className="block px-4 py-2 text-sm text-slate-300 hover:bg-[#DFF1F1] hover:text-black"
+                  className="block px-4 py-2 text-sm text-gray-700 font-medium hover:bg-[#DFF1F1] hover:text-black"
                 >
                   Settings
                 </Link>
@@ -88,7 +88,7 @@ const Navbar = () => {
           ) : (
             <button
               onClick={() => navigate("/auth")}
-              className="px-6 py-1.5 max-sm:text-sm bg-[#FF0000] active:scale-95 hover:bg-red-700 text-white transition rounded"
+              className="px-6 py-2 max-sm:text-sm bg-[#FF0000] font-semibold text-white shadow-md shadow-[#FF0000]/20 hover:shadow-lg hover:shadow-[#FF0000]/30 hover:bg-red-700 active:scale-95 transition-all rounded-lg"
             >
               Get started
             </button>
@@ -119,17 +119,17 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="fixed inset-0 z-100 bg-[#F5F5F5]/60 text-black backdrop-blur flex flex-col items-center justify-center text-lg gap-8 md:hidden transition-transform duration-300">
-          <Link to="/" onClick={() => setMenuOpen(false)}>
+        <div className="fixed inset-0 z-100 bg-[#F5F5F5]/90 text-black backdrop-blur flex flex-col items-center justify-center text-lg gap-8 md:hidden transition-transform duration-300">
+          <Link to="/" onClick={() => setMenuOpen(false)} className="font-semibold text-2xl text-gray-800 hover:text-[#FF0000] transition-colors">
             Home
           </Link>
-          <Link to="/projects" onClick={() => setMenuOpen(false)}>
+          <Link to="/projects" onClick={() => setMenuOpen(false)} className="font-semibold text-2xl text-gray-800 hover:text-[#FF0000] transition-colors">
             Projects
           </Link>
-          <Link to="/community" onClick={() => setMenuOpen(false)}>
+          <Link to="/community" onClick={() => setMenuOpen(false)} className="font-semibold text-2xl text-gray-800 hover:text-[#FF0000] transition-colors">
             Community
           </Link>
-          <Link to="/pricing" onClick={() => setMenuOpen(false)}>
+          <Link to="/pricing" onClick={() => setMenuOpen(false)} className="font-semibold text-2xl text-gray-800 hover:text-[#FF0000] transition-colors">
             Pricing
           </Link>
 

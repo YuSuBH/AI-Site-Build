@@ -75,7 +75,7 @@ const Community = () => {
                       <h2 className="text-lg font-medium line-clamp-2">
                         {project.name}
                       </h2>
-                      <button className="px-2.5 py-0.5 mt-1 ml-2 text-xs bg-[#DFF1F1] border border-[#BBD5DA] rounded-full">
+                      <button className="px-2.5 py-0.5 mt-1 ml-2 text-xs bg-[#DFF1F1] border border-[#BBD5DA] rounded-full text-gray-800 group-hover:text-gray-900 group-hover:bg-white group-hover:border-transparent">
                         Website
                       </button>
                     </div>

@@ -180,7 +180,7 @@ const Projects = () => {
         </div>
 
         {/* middle */}
-        <div className="hidden sm:flex gap-2 bg-gray-950 p-1.5 rounded-md">
+        <div className="hidden sm:flex gap-2 bg-white border border-[#BBD5DA] shadow-sm p-1.5 rounded-md text-gray-700">
           <SmartphoneIcon
             onClick={() => setDevice("phone")}
             className={`size-6 p-1 rounded cursor-pointer ${device === "phone" ? "bg-[#BBD5DA]" : ""}`}
@@ -200,7 +200,7 @@ const Projects = () => {
           <button
             onClick={saveProject}
             disabled={isSaving}
-            className="max-sm:hidden bg-[#DFF1F1] hover:bg-[#BBD5DA] text-white px-3.5 py-1 flex items-center gap-2 rounded sm:rounded-sm transition-colors border border-[#BBD5DA]"
+            className="max-sm:hidden bg-[#DFF1F1] hover:bg-[#BBD5DA] text-gray-900 hover:text-black px-3.5 py-1 flex items-center gap-2 rounded sm:rounded-sm transition-colors border border-[#BBD5DA]"
           >
             {isSaving ? (
               <Loader2Icon className="animate-spin" size={16} />
