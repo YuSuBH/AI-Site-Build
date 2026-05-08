@@ -34,8 +34,14 @@ const Preview = () => {
   };
 
   useEffect(() => {
-    if (!isPending && session?.user) {
-      fetchCode();
+    if (!isPending) {
+      if (session?.user) {
+        fetchCode();
+      } else {
+        // Session resolved but no user — stop the spinner and show an error
+        toast.error("You must be logged in to preview this project.");
+        setLoading(false);
+      }
     }
   }, [session, isPending]);
 
