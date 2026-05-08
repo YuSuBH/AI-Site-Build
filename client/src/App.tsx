@@ -44,14 +44,14 @@ const App = () => {
         className="fixed inset-0 -z-10 h-screen w-full bg-[#F5F5F5] overflow-hidden"
       >
         {/* Base Grid Background */}
-        <div className="absolute inset-0 h-full w-full bg-[radial-gradient(#BBD5DA_2px,transparent_2px)] [background-size:24px_24px] opacity-100"></div>
+        <div className="absolute inset-0 h-full w-full bg-[radial-gradient(#BBD5DA_2px,transparent_2px)] bg-size-[24px_24px] opacity-100"></div>
 
         {/* Proximity Grid Background (Theme Accent) */}
         <div
-          className="absolute inset-0 h-full w-full bg-[radial-gradient(#FF0000_2px,transparent_2px)] [background-size:24px_24px] opacity-100"
+          className="absolute inset-0 h-full w-full bg-[radial-gradient(#FF0000_2px,transparent_2px)] bg-size-[24px_24px] opacity-100"
           style={{
             WebkitMaskImage: `radial-gradient(150px circle at var(--mouse-x, -1000px) var(--mouse-y, -1000px), black, transparent)`,
-            maskImage: `radial-gradient(250px circle at var(--mouse-x, -1000px) var(--mouse-y, -1000px), black, transparent)`,
+            maskImage: `radial-gradient(150px circle at var(--mouse-x, -1000px) var(--mouse-y, -1000px), black, transparent)`,
           }}
         ></div>
 
@@ -91,7 +91,7 @@ const App = () => {
         </div>
 
         {/* Smooth fading overlay at the bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#F5F5F5] to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-linear-to-t from-[#F5F5F5] to-transparent"></div>
       </div>
 
       <Routes>
