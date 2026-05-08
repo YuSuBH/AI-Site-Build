@@ -18,7 +18,7 @@ const corsOptions = {
 // Middleware
 app.use(cors(corsOptions));
 
-app.all("/api/auth/{*any}", toNodeHandler(auth));
+app.all("/api/auth/*", toNodeHandler(auth));
 
 app.use(express.json({ limit: "50mb" }));
 
